@@ -66,7 +66,7 @@ function displayRankings() {
             for (var i = 0; i < dogs.length; i++) {
                 var pic = document.createElement("img");
                 pic.className = "img-responsive";
-                pic.src = "dogs/"+dogs[i].firstChild.innerHTML+"/cover.jpg";
+                pic.src = "https://raw.githubusercontent.com/thienvantran/dog-rating/master/dogs/"+dogs[i].firstChild.innerHTML+"/cover.JPG";//"dogs/"+dogs[i].firstChild.innerHTML+"/cover.jpg";
                 pic.width = 100;
                 pic.height = 100;
                 var rating = dogs[i].childNodes[1].innerHTML;

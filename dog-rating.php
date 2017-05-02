@@ -15,17 +15,18 @@ function modeRanking() {
         $dog->addChild('rating',$rating);
         $dog->addChild('votes',$votes);
     }
-    return $xml->asXML();
+    echo $xml->asXML();
 }
-
-modeRanking();
+function modePic() {
+    
+}
 
 switch($mode) {
     case 'ranking':
         echo modeRanking();
         break;
-    case 'rate':
-        echo modeRate();
+    case 'pic':
+        echo modePic();
         break;
 }
 
