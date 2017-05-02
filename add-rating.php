@@ -13,7 +13,7 @@ $newRating = (($oldRating*$oldVotes)+$rating)/$newVotes;
 
 
 $new_text = "$name$newRating\n$newVotes";
-fwrite(fopen($info_file, "w"),$new_text);
+fwrite(fopen("dogs/$dog/info.txt", "w"),$new_text);
 
 echo $new_text;
 

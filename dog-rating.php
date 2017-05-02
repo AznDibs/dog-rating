@@ -17,7 +17,13 @@ function modeRanking() {
     return $xml->asXML();
 }
 function modePic() {
-    
+    $xml = new SimpleXMLElement("<body></body>");
+    foreach(glob("dogs/**/info.txt") as $info_file) {
+        $name = file($info_file)[0];
+        $dog = $xml->addChild('dog');
+        $dog->addChild('name',$name);
+    }
+    return $xml->asXML();
 }
 
 switch($mode) {

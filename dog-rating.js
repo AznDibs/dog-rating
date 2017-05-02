@@ -1,3 +1,5 @@
+var currentDog = "dog0";
+
 $(document).ready(function(){
     displayRankings();
     for (var i = 0; i < 10; i++) {
@@ -9,27 +11,28 @@ $(document).ready(function(){
     for (var i = 0; i < buttons.length; i++) {
         $(buttons[i]).on("click",onClick);
     }
-    displayDogLocal();
+    displayDog();
 });
-
-function displayDogLocal() {
-    var pic = document.createElement("img");
-    pic.className = "img-responsive";
-    pic.src = "https://raw.githubusercontent.com/thienvantran/dog-rating/master/dogs/dog0/cover.JPG";//"dogs/"+dogs[i].firstChild.innerHTML+"/cover.jpg";
-    pic.width = 400;
-    pic.height = 400;  
-    $('#current-dog').append(pic);
-}
 
 function displayDog() {
     $.ajax({
         url: 'dog-rating.php',
-        type: 'POST',
+        type: 'GET',
         data: {
             mode: 'pic'
         },
         success: function(stuff) {
-            console.log(stuff);
+            var parser = new DOMParser();
+            var xmlDoc = parser.parseFromString(stuff,"text/xml");
+            var dogs = xmlDoc.getElementsByTagName("dog");
+            var random = Math.floor(Math.random()*dogs.length);
+            var pic = document.createElement("img");
+            pic.className = "img-responsive";
+            pic.src = "dogs/"+dogs[random].firstChild.innerHTML+"/cover.jpg";
+            currentDog = dogs[random].firstChild.innerHTML;
+            pic.width = 500;
+            pic.height = 500; 
+            $("#current-dog").append(pic);
         },
         error: function(e) {
             console.log(e.message);
@@ -38,18 +41,18 @@ function displayDog() {
 }
 
 function onClick(me) {
-    var name = me.target.parentNode.id;
-    console.log(me.target.innerHTML);
-    rateDog("dog0",me.target.innerHTML);
+    var name = currentDog.split("\n")[0];
+    console.log(name);
+    rateDog(name,me.target.innerHTML);
 }
 
-function rateDog(dog, rating) {
+function rateDog(x, y) {
     $.ajax({
         url: 'add-rating.php',
         type: 'POST',
         data: {
-            dog: dog,
-            rating: rating
+            dog: x,
+            rating: y
         },
         success: function(stuff) {
             console.log(stuff);
@@ -75,7 +78,7 @@ function displayRankings() {
             for (var i = 0; i < dogs.length; i++) {
                 var pic = document.createElement("img");
                 pic.className = "img-responsive";
-                pic.src = "https://raw.githubusercontent.com/thienvantran/dog-rating/master/dogs/"+dogs[i].firstChild.innerHTML+"/cover.JPG";//"dogs/"+dogs[i].firstChild.innerHTML+"/cover.jpg";
+                pic.src = "dogs/"+dogs[i].firstChild.innerHTML+"/cover.jpg";
                 pic.width = 100;
                 pic.height = 100;
                 var rating = dogs[i].childNodes[1].innerHTML;
