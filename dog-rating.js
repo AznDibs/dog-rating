@@ -9,8 +9,17 @@ $(document).ready(function(){
     for (var i = 0; i < buttons.length; i++) {
         $(buttons[i]).on("click",onClick);
     }
-    displayDog();
+    displayDogLocal();
 });
+
+function displayDogLocal() {
+    var pic = document.createElement("img");
+    pic.className = "img-responsive";
+    pic.src = "https://raw.githubusercontent.com/thienvantran/dog-rating/master/dogs/dog0/cover.JPG";//"dogs/"+dogs[i].firstChild.innerHTML+"/cover.jpg";
+    pic.width = 400;
+    pic.height = 400;  
+    $('#current-dog').append(pic);
+}
 
 function displayDog() {
     $.ajax({

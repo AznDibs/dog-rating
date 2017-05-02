@@ -3,7 +3,6 @@
 $mode = $_GET["mode"];
 
 
-
 function modeRanking() {
     $xml = new SimpleXMLElement("<body></body>");
     foreach(glob("dogs/**/info.txt") as $info_file) {
@@ -15,7 +14,7 @@ function modeRanking() {
         $dog->addChild('rating',$rating);
         $dog->addChild('votes',$votes);
     }
-    echo $xml->asXML();
+    return $xml->asXML();
 }
 function modePic() {
     
