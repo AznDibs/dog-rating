@@ -15,7 +15,7 @@ function modeRanking() {
         $dog->addChild('rating',$rating);
         $dog->addChild('votes',$votes);
     }
-    echo $xml->asXML();
+    return $xml->asXML();
 }
 
 modeRanking();

@@ -1,1 +1,1 @@
-rate dogs.
+rate dogs.git 
